@@ -10,17 +10,20 @@ const fetchMealIdeas = async (ingredient) => {
 };
 
 export default function MealIdeas({ ingredient }) {
-  const [meals, setMeals] = useState([]);
+  const [meals, setMeals] = useState(null);
   const loadMealIdeas = async () => {
     setMeals(await fetchMealIdeas(ingredient));
   };
   useEffect(() => {
-    loadMealIdeas();
+    if (ingredient !== "") {
+      loadMealIdeas();
+    }
   }, [ingredient]);
+
   return (
     <div>
-      <h1>Meal ideas</h1>
-      {meals.length != 0 && (
+      <h1 className="font-bold text-white text-xl">Meal ideas</h1>
+      {meals != null && (
         <div>
           {meals.map((meal) => (
             <li>{meal.strMeal}</li>
